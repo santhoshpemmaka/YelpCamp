@@ -1,0 +1,61 @@
+var express=require("express");
+var app=express();
+var bodyparser=require("body-parser");
+
+
+app.set("view engine","ejs");
+app.use(bodyparser.urlencoded({extended:true}));
+var campgrounds=[
+{ name:"italy",
+ image:"https://pixabay.com/get/ea31b0082df1033ed1584d05fb1d4e97e07ee3d21cac104497f7c17faee4b0bf_340.jpg"},
+ {
+  name:"Nature",
+  image:"https://pixabay.com/get/ea36b70e21f6063ed1584d05fb1d4e97e07ee3d21cac104497f7c07daeecb6bd_340.jpg"
+ },
+
+ {
+  name:"Nature",
+  image:"https://pixabay.com/get/ea36b70e21f6063ed1584d05fb1d4e97e07ee3d21cac104497f7c07daeecb6bd_340.jpg"
+ },
+ { name:"italy",
+ image:"https://pixabay.com/get/ea31b0082df1033ed1584d05fb1d4e97e07ee3d21cac104497f7c17faee4b0bf_340.jpg"},
+ {
+  name:"Nature",
+  image:"https://pixabay.com/get/ea36b70e21f6063ed1584d05fb1d4e97e07ee3d21cac104497f7c07daeecb6bd_340.jpg"
+ },
+
+ {
+  name:"Nature",
+  image:"https://pixabay.com/get/ea36b70e21f6063ed1584d05fb1d4e97e07ee3d21cac104497f7c07daeecb6bd_340.jpg"
+ }
+ 
+ 
+ 
+ ];
+
+app.get("/",function(req,res){
+ res.render("landing");
+ });
+ 
+ app.get("/:campgrounds",function(req,res){
+  res.render("campgrounds",{campgrounds:campgrounds});
+  });
+ 
+
+ 
+
+ 
+ app.post("/campgrounds",function(req,res){
+  var name=req.body.name;
+  var image=req.body.image;
+  var newcampground={name:name,image:image}
+  campgrounds.push(newcampground);
+  res.redirect("/campgrounds");
+ });
+ app.get("/campgrounds/new",function(req,res){
+  res.render("new");
+ })
+ 
+ app.listen(process.env.PORT,process.env.ID,function(){
+ console.log("Yelp camp stared");
+ });
